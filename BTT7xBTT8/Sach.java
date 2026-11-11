@@ -1,13 +1,14 @@
 package BTT7xBTT8;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 public class Sach {
-    public String maSach;
-    public String tieuDe;
-    public String tacGia;
-    public int namXuatBan;
-    public int soLuong;
+    private String maSach;
+    private String tieuDe;
+    private String tacGia;
+    private int namXuatBan;
+    private int soLuong;
 
     public static ArrayList<Sach> danhSachSach = new ArrayList<>();
 
@@ -18,8 +19,53 @@ public class Sach {
         this.maSach = maSach;
         this.tieuDe = tieuDe;
         this.tacGia = tacGia;
-        this.namXuatBan = namXuatBan;
-        this.soLuong = soLuong;
+        this.setNamXuatBan(namXuatBan);
+        this.setSoLuong(soLuong);
+    }
+
+    public void setMaSach(String maSach) {
+        this.maSach = maSach;
+    }
+
+    public String getMaSach() {
+        return maSach;
+    }
+
+    public void setTieuDe(String tieuDe) {
+        this.tieuDe = tieuDe;
+    }
+
+    public String getTieuDe() {
+        return tieuDe;
+    }
+
+    public void setTacGia(String tacGia) {
+        this.tacGia = tacGia;
+    }
+
+    public String getTacGia() {
+        return tacGia;
+    }
+
+    public void setNamXuatBan(int namXuatBan) {
+        int currentYear = Year.now().getValue();
+        if (namXuatBan > 0 && namXuatBan <= currentYear) {
+            this.namXuatBan = namXuatBan;
+        } else {
+            System.out.println("Nam xuat ban khong hop le (phai > 0 va <= " + currentYear + ")!");
+        }
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        if (soLuong >= 0) {
+            this.soLuong = soLuong;
+        } else {
+            System.out.println("So luong khong duoc am (phai >= 0)!");
+        }
     }
 
     public void hienThiThongTin() {
@@ -32,7 +78,7 @@ public class Sach {
 
     public static void themSach(Sach s) {
         danhSachSach.add(s);
-        System.out.println("-> Da them sach: " + s.tieuDe);
+        System.out.println("-> Da them sach: " + s.getTieuDe());
     }
 
     public static void hienThiDanhSach() {
@@ -49,7 +95,7 @@ public class Sach {
 
     public static Sach timKiemTheoMa(String maCanTim) {
         for (Sach s : danhSachSach) {
-            if (s.maSach.equalsIgnoreCase(maCanTim)) {
+            if (s.getMaSach() != null && s.getMaSach().equalsIgnoreCase(maCanTim)) {
                 return s;
             }
         }
@@ -70,7 +116,7 @@ public class Sach {
 
     public static boolean xoaSach(Sach s) {
         if (s != null && danhSachSach.remove(s)) {
-            System.out.println("-> Da xoa sach: " + s.tieuDe);
+            System.out.println("-> Da xoa sach: " + s.getTieuDe());
             return true;
         } else {
             System.out.println("-> Khong the xoa sach (doi tuong khong hop le hoac khong ton tai)!");
